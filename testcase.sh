@@ -5,6 +5,8 @@ echo "Script made by Jason Liu, November 2013"
 echo -n "Enter name of file (*.scm): "
 read a
 
+orig="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 # Written for Racket 5.3.6
 direc=~/../../Applications/Racket\ v5.3.6/bin/
 
@@ -29,3 +31,8 @@ else
    echo ""
    echo "File not supported."
 fi
+
+cp output.txt "$orig"
+
+# Remove files
+# rm output.txt; rm hw6_testcases.scm; rm hw6.scm

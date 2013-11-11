@@ -10,5 +10,5 @@ Current requirements: Racket installed here: (directory is changeable)
 Running the script:
 Place the script in the same directory as the hw*.scm file. Then open the Terminal:
 
-    chmod +x script.sh
-    ./script.sh > output.txt
+    chmod +x testcase.sh
+    ./testcase.sh
