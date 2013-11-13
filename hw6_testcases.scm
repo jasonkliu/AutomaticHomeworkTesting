@@ -1,5 +1,5 @@
 ;************************************************************
-; Test cases for HW #6, updated 11/11/2013, made by Jason Liu
+; Test cases for HW #6, updated 11/13/2013, made by Jason Liu
 ;************************************************************
 
 (load "hw6.scm")
@@ -20,10 +20,10 @@
     (begin (begin (display "---- TEST ") (display number) (display " -----")))
     (newline)
     (display symbol) (newline)
-   ; (display output) (newline)
+   ; (display function) (newline)
     (if (equal? function output)
         (begin (display "Your output is correct: ") (display function))
-        (begin (display "Your output is wrong: ") function))
+        (begin (display "Your output is wrong: ") (display function)))
     (newline) (newline)))
 
 (define elsetest
@@ -31,10 +31,10 @@
     (begin (begin (display "---- TEST ") (display number) (display " -----")))
     (newline)
     (display symbol) (newline)
-    ; (display output) (newline)
+   ; (display function) (newline)
     (if (equal? function output)
         (begin (display "Your output is correct: ") (display function))
-        (begin (display "Your output is wrong: ") function))
+        (begin (display "Your output is wrong: ") (display function)))
     (newline) (newline)))
 
 ;;************************************************************
@@ -62,8 +62,138 @@
 (testcase 4 2 (config-cpu (sub 4 config4)) 
           '((acc (0 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0)) (pc (0 0 0 0 0 0 0 0 0 0 0 0)) (run-flag (1)) (aeb (0))) '(config-cpu (sub 4 config4)))
 
+;;************************************************************
+(define cpu-ex3 '((acc (1 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1))
+		  (pc (0 0 0 0 0 0 0 0 0 0 0 0))
+		  (run-flag (1))
+		  (aeb (0))))
+(define config5 (list cpu-ex3 ram-ex1))
+
+(testcase 5 1 '(output config5) 
+          '(output = -15) '(output config5))
+(display "Comment: The first line of the answer should be 'output = -15'") (newline) (newline)
+
+;;************************************************************
+(testcase 6 1 (config-cpu (jump 15 config1))
+          '((acc (0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1)) (pc (0 0 0 0 0 0 0 0 1 1 1 1)) (run-flag (1)) (aeb (0))) '(config-cpu (jump 15 config1)))
+(testcase 6 2 (config-cpu (jump 5000 config1))
+          '((acc (0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1)) (pc (0 0 1 1 1 0 0 0 1 0 0 0)) (run-flag (1)) (aeb (0))) '(config-cpu (jump 5000 config1)))
+(testcase 6 3 (config-cpu (skipzero (list '((acc (1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0)) (pc (0 0 0 0 0 0 0 0 0 0 0 1)) (run-flag (0)) (aeb (1))) ram-ex1)))
+          '((acc (1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0)) (pc (0 0 0 0 0 0 0 0 0 0 1 1)) (run-flag (0)) (aeb (1))) '(config-cpu (skipzero (list '((acc (1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0)) (pc (0 0 0 0 0 0 0 0 0 0 0 1)) (run-flag (0)) (aeb (1))) ram-ex1))))
+(testcase 6 4 (config-cpu (skippos config5))
+          '((acc (1 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1)) (pc (0 0 0 0 0 0 0 0 0 0 0 1)) (run-flag (1)) (aeb (0))) '(config-cpu (skippos config5)))
+          
+;;************************************************************
+(testcase 7 1 (loadi 1 config3)
+          '(((acc (0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1)) (pc (0 0 0 0 0 0 0 0 0 1 1 1)) (run-flag (1)) (aeb (0)))
+            ((0 (0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0))
+             (1 (1 1 1 1 0 0 0 0 0 0 0 0 0 1 0 1))
+             (2 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
+             (3 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
+             (4 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0))
+             (5 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1)))) '(loadi 1 config3))
+
+(testcase 7 2 (storei 0 config3)
+          '(((acc (0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1)) (pc (0 0 0 0 0 0 0 0 0 1 1 1)) (run-flag (1)) (aeb (0)))
+            ((0 (0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0))
+             (1 (1 1 1 1 0 0 0 0 0 0 0 0 0 1 0 1))
+             (2 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
+             (3 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
+             (4 (0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1))
+             (5 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1)))) '(storei 0 config3))
+
+;;************************************************************
+(testcase 8 1 (next-config config3)
+          '(((acc (0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1)) (pc (0 0 0 0 0 0 0 0 0 1 1 1)) (run-flag (0)) (aeb (0)))
+            ((0 (0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0))
+             (1 (1 1 1 1 0 0 0 0 0 0 0 0 0 1 0 1))
+             (2 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
+             (3 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
+             (4 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0))
+             (5 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1)))) '(next-config config3))
+
+(testcase 8 2 (next-config config5)
+          '(((acc (0 0 0 0 0 0 0 0 0 0 1 0 1 0 1 0)) (pc (0 0 0 0 0 0 0 0 0 0 0 1)) (run-flag (1)) (aeb (0)))
+            ((0 (0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0))
+             (1 (0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 1))
+             (2 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
+             (3 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
+             (4 (0 0 0 0 0 0 0 0 0 0 1 0 1 0 1 0))
+             (5 (1 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1)))) '(next-config config5))
+
+(testcase 8 3 (next-config (next-config config5))
+          '(((acc (0 0 0 0 0 0 0 0 0 0 1 0 1 0 1 0)) (pc (0 0 0 0 0 0 0 0 0 0 1 0)) (run-flag (1)) (aeb (0)))
+            ((0 (0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0))
+             (1 (0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 1))
+             (2 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
+             (3 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
+             (4 (0 0 0 0 0 0 0 0 0 0 1 0 1 0 1 0))
+             (5 (0 0 0 0 0 0 0 0 0 0 1 0 1 0 1 0)))) '(next-config (next-config config5)))
+
+(testcase 8 4 (next-config (next-config (next-config config5)))
+          '(((acc (0 0 0 0 0 0 0 0 0 0 1 0 1 0 1 0)) (pc (0 0 0 0 0 0 0 0 0 0 1 0)) (run-flag (0)) (aeb (0)))
+            ((0 (0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0))
+             (1 (0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 1))
+             (2 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
+             (3 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
+             (4 (0 0 0 0 0 0 0 0 0 0 1 0 1 0 1 0))
+             (5 (0 0 0 0 0 0 0 0 0 0 1 0 1 0 1 0)))) '(next-config (next-config (next-config config5))))
+
+(testcase 8 5 (next-config (next-config (next-config (next-config config5))))
+          '(((acc (0 0 0 0 0 0 0 0 0 0 1 0 1 0 1 0)) (pc (0 0 0 0 0 0 0 0 0 0 1 0)) (run-flag (0)) (aeb (0)))
+            ((0 (0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0))
+             (1 (0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 1))
+             (2 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
+             (3 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
+             (4 (0 0 0 0 0 0 0 0 0 0 1 0 1 0 1 0))
+             (5 (0 0 0 0 0 0 0 0 0 0 1 0 1 0 1 0)))) '(next-config (next-config (next-config (next-config config5)))))
+
+;;************************************************************
+(testcase 9 1 (config-ram (salo '((add 30) (sub 49) (input) (output) (jump 22) (skipzero) (skippos) (skiperr) (loadi 99) (storei 103))))
+          '((0 (0 0 1 1 0 0 0 0 0 0 0 1 1 1 1 0))
+            (1 (0 1 0 0 0 0 0 0 0 0 1 1 0 0 0 1))
+            (2 (0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0))
+            (3 (0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0))
+            (4 (0 1 1 1 0 0 0 0 0 0 0 1 0 1 1 0))
+            (5 (1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
+            (6 (1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0))
+            (7 (1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0))
+            (8 (1 0 1 1 0 0 0 0 0 1 1 0 0 0 1 1))
+            (9 (1 1 0 0 0 0 0 0 0 1 1 0 0 1 1 1))) '(config-ram (salo '((add 30) (sub 49) (input) (output) (jump 22) (skipzero) (skippos) (skiperr) (loadi 99) (storei 103)))))
 
 
+;;************************************************************
+(testcase 10 1 (simulate 4 config3)
+          '((((acc (0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1)) (pc (0 0 0 0 0 0 0 0 0 1 1 1)) (run-flag (1)) (aeb (0)))
+            ((0 (0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0))
+             (1 (1 1 1 1 0 0 0 0 0 0 0 0 0 1 0 1))
+             (2 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
+             (3 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
+             (4 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0))
+             (5 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1))))
+           (((acc (0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1)) (pc (0 0 0 0 0 0 0 0 0 1 1 1)) (run-flag (0)) (aeb (0)))
+            ((0 (0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0))
+             (1 (1 1 1 1 0 0 0 0 0 0 0 0 0 1 0 1))
+             (2 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
+             (3 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
+             (4 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0))
+             (5 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1))))) '(simulate 4 config3))
+
+(testcase 10 2 (simulate 4 config1)
+          '((((acc (0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1)) (pc (0 0 0 0 0 0 0 0 0 1 1 1)) (run-flag (1)) (aeb (0)))
+            ((0 (0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0))
+             (1 (0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 1))
+             (2 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
+             (3 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
+             (4 (0 0 0 0 0 0 0 0 0 0 1 0 1 0 1 0))
+             (5 (1 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1))))
+           (((acc (0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1)) (pc (0 0 0 0 0 0 0 0 0 1 1 1)) (run-flag (0)) (aeb (0)))
+            ((0 (0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0))
+             (1 (0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 1))
+             (2 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
+             (3 (0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0))
+             (4 (0 0 0 0 0 0 0 0 0 0 1 0 1 0 1 0))
+             (5 (1 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1))))) '(simulate 4 config1))
 
 
 (display 'done)
