@@ -25,3 +25,8 @@ For example, to make a test case for problem 2, number 3, with the function (+ 2
     ---- TEST 3 -----
     (+ 2 2)
     Your output is correct: 4
+
+To clean up your Racket directory (delete hw6.scm, hw7.scm, etc), run this:
+
+    chmod +x cleanup.sh
+    ./cleanup.sh
