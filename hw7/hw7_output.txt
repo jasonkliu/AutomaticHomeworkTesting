@@ -1,0 +1,114 @@
+Test cases for Homework 7
+
+------------PROBLEM 1---------------
+---- TEST 1 -----
+(ok-symbol? (quote 5))
+Your output is correct: #f
+
+---- TEST 2 -----
+(ok-symbol? (quote asdf))
+Your output is correct: #t
+
+---- TEST 0 -----
+(reg-exp? exp0)
+Your output is correct: #t
+
+------------PROBLEM 2---------------
+---- TEST 1 -----
+(reg-exp? exp1)
+Your output is correct: #t
+
+---- TEST 2 -----
+(reg-exp? exp2)
+Your output is correct: #t
+
+---- TEST 3 -----
+(reg-exp? exp3)
+Your output is correct: #t
+
+---- TEST 4 -----
+(reg-exp? exp4)
+Your output is correct: #t
+
+---- TEST 5 -----
+(reg-exp? exp5)
+Your output is correct: #t
+
+---- TEST 6 -----
+(reg-exp? exp6)
+Your output is correct: #t
+
+---- TEST 7 -----
+(reg-exp? exp7)
+Your output is correct: #t
+
+---- TEST 8 -----
+(reg-exp? exp8)
+Your output is correct: #t
+
+---- TEST 9 -----
+(reg-exp? exp9)
+Your output is correct: #t
+
+---- TEST 0 -----
+(reg-exp? exp-chase)
+Your output is correct: #t
+
+---- TEST 10 -----
+(reg-exp-type exp0)
+Your output is correct: conc
+
+---- TEST 11 -----
+(reg-exp-type exp1)
+Your output is correct: conc
+
+---- TEST 12 -----
+(reg-exp-type exp2)
+Your output is correct: union
+
+---- TEST 13 -----
+(reg-exp-type exp3)
+Your output is correct: star
+
+---- TEST 14 -----
+(reg-exp-type exp4)
+Your output is correct: star
+
+---- TEST 15 -----
+(reg-exp-type exp5)
+Your output is correct: conc
+
+---- TEST 16 -----
+(reg-exp-type exp6)
+Your output is correct: conc
+
+---- TEST 17 -----
+(reg-exp-type exp7)
+Your output is correct: conc
+
+---- TEST 18 -----
+(reg-exp-type exp8)
+Your output is correct: conc
+
+---- TEST 19 -----
+(reg-exp-type exp9)
+Your output is correct: conc
+
+---- TEST 20 -----
+(reg-exp-type exp-chase)
+Your output is correct: conc
+
+---- TEST 21 -----
+(map reg-exp-type exp-chase)
+Your output is correct: (symbol union symbol symbol union star)
+
+------------PROBLEM 4---------------
+---- TEST 1 -----
+(reverse-exp exp5)
+Your output is correct: (r (+: (u: d a)) c)
+
+---- TEST 2 -----
+(reverse-exp exp7)
+Your output is correct: ((u: tale story) long (+: (u: quite very)) a)
+
+done
