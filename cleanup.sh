@@ -20,7 +20,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "Running in: $DIR"
 
 # Remove files
-rm output.txt; rm hw6_testcases.scm; rm hw6.scm; rm hw7_testcases.scm; rm hw7.scm
+rm output.txt; rm hw6_testcases.scm; rm hw6.scm; rm hw7_testcases.scm
+rm hw7.scm; rm hw8_testcases.scm; rm hw8.scm
 
 echo ""
 echo "done"
