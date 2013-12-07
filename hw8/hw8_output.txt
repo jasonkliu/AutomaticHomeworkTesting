@@ -1,0 +1,271 @@
+Test cases for Homework 8
+
+------------PROBLEM 1---------------
+---- TEST 1 -----
+(g1)
+Your output is correct: ill-formed-command
+
+---- TEST 2 -----
+(g1 (quote hi-there!))
+Your output is correct: ill-formed-command
+
+---- TEST 3 -----
+(g1 (quote board))
+Your output is correct: ((- - -) (- - -) (- - -))
+
+---- TEST 4 -----
+(g1 (quote play) (quote x) 2 2)
+Your output is correct: ((- - -) (- x -) (- - -))
+
+---- TEST 5 -----
+(g1 (quote play) (quote x) 1 1)
+Your output is correct: out-of-turn
+
+---- TEST 6 -----
+(g1 (quote play) (quote o) 2 2)
+Your output is correct: square-filled
+
+---- TEST 7 -----
+(g1 (quote play) (quote o) 3 3)
+Your output is correct: ((- - -) (- x -) (- - o))
+
+---- TEST 8 -----
+(g1 (quote play) (quote x) 0 0)
+Your output is correct: ill-formed-command
+
+---- TEST 9 -----
+(g1 (quote play) 1 2)
+Your output is correct: ill-formed-command
+
+---- TEST 10 -----
+(g1 (quote play) (quote x) 1 2)
+Your output is correct: ((- x -) (- x -) (- - o))
+
+---- TEST 11 -----
+(g1 (quote play) (quote o) 1 3)
+Your output is correct: ((- x o) (- x -) (- - o))
+
+---- TEST 12 -----
+(g1 (quote play) (quote x) 3 2)
+Your output is correct: x-won
+
+---- TEST 13 -----
+(g1 (quote play) (quote o) 2 3)
+Your output is correct: game-over
+
+---------------------NEXT TEST CASE---------------
+
+---- TEST 14 -----
+(g2 (quote play) (quote o) 2 3)
+Your output is correct: ((- - -) (- - o) (- - -))
+
+---- TEST 15 -----
+(g1 (quote board))
+Your output is correct: ((- x o) (- x -) (- x o))
+
+---- TEST 16 -----
+(g1 (quote reset))
+Your output is correct: ((- - -) (- - -) (- - -))
+
+---- TEST 17 -----
+(g2 (quote board))
+Your output is correct: ((- - -) (- - o) (- - -))
+
+---------------------NEXT TEST CASE---------------
+
+---- TEST 20 -----
+(g6 (quote play) (quote o) 3 1)
+Your output is correct: ((- - -) (- - -) (o - -))
+
+---- TEST 21 -----
+(g6 (quote play) (quote x) 3 2)
+Your output is correct: ((- - -) (- - -) (o x -))
+
+---- TEST 22 -----
+(g6 (quote play) (quote x) 3 1)
+Your output is correct: out-of-turn
+
+---- TEST 23 -----
+(g6 (quote play) (quote x) 3 3)
+Your output is correct: out-of-turn
+
+---- TEST 24 -----
+(g6 (quote play) (quote x) 3 1)
+Your output is correct: out-of-turn
+
+---- TEST 25 -----
+(g6 (quote play) (quote o) 2 2)
+Your output is correct: ((- - -) (- o -) (o x -))
+
+---- TEST 26 -----
+(g6 (quote play) (quote x) 1 2)
+Your output is correct: ((- x -) (- o -) (o x -))
+
+---- TEST 27 -----
+(g6 (quote play) (quote o) 3 2)
+Your output is correct: square-filled
+
+---- TEST 28 -----
+(g6 (quote play) (quote x) 1 3)
+Your output is correct: out-of-turn
+
+---- TEST 29 -----
+(g6 (quote play) (quote o) 1 1)
+Your output is correct: ((o x -) (- o -) (o x -))
+
+---- TEST 30 -----
+(g6 (quote play) (quote o) 3 2)
+Your output is correct: out-of-turn
+
+---- TEST 31 -----
+(g6 (quote play) (quote o) 3 1)
+Your output is correct: out-of-turn
+
+---- TEST 32 -----
+(g6 (quote play) (quote x) 2 3)
+Your output is correct: ((o x -) (- o x) (o x -))
+
+---- TEST 33 -----
+(g6 (quote play) (quote o) 2 1)
+Your output is correct: o-won
+
+---------------------NEXT TEST CASE---------------
+
+---- TEST 40 -----
+(g9 (quote play) (quote o) 3 1)
+Your output is correct: ((- - -) (- - -) (o - -))
+
+---- TEST 41 -----
+(g9 (quote play) (quote x) 3 2)
+Your output is correct: ((- - -) (- - -) (o x -))
+
+---- TEST 42 -----
+(g9 (quote play) (quote x) 3 1)
+Your output is correct: out-of-turn
+
+---- TEST 43 -----
+(g9 (quote play) (quote x) 3 3)
+Your output is correct: out-of-turn
+
+---- TEST 44 -----
+(g9 (quote play) (quote x) 3 1)
+Your output is correct: out-of-turn
+
+---- TEST 45 -----
+(g9 (quote play) (quote o) 2 2)
+Your output is correct: ((- - -) (- o -) (o x -))
+
+---- TEST 46 -----
+(g9 (quote play) (quote x) 1 2)
+Your output is correct: ((- x -) (- o -) (o x -))
+
+---- TEST 47 -----
+(g9 (quote play) (quote o) 3 2)
+Your output is correct: square-filled
+
+---- TEST 48 -----
+(g9 (quote play) (quote x) 1 3)
+Your output is correct: out-of-turn
+
+---- TEST 49 -----
+(g9 (quote play) (quote o) 1 1)
+Your output is correct: ((o x -) (- o -) (o x -))
+
+---- TEST 50 -----
+(g9 (quote play) (quote o) 3 2)
+Your output is correct: out-of-turn
+
+---- TEST 51 -----
+(g9 (quote play) (quote o) 3 1)
+Your output is correct: out-of-turn
+
+---- TEST 52 -----
+(g9 (quote play) (quote o) 2 1)
+Your output is correct: out-of-turn
+
+---- TEST 53 -----
+(g9 (quote play) (quote o) 3 3)
+Your output is correct: out-of-turn
+
+---- TEST 54 -----
+(g9 (quote play) (quote o) 3 1)
+Your output is correct: out-of-turn
+
+---- TEST 55 -----
+(g9 (quote play) (quote x) 1 3)
+Your output is correct: ((o x x) (- o -) (o x -))
+
+---- TEST 56 -----
+(g9 (quote play) (quote x) 2 3)
+Your output is correct: out-of-turn
+
+---- TEST 57 -----
+(g9 (quote play) (quote o) 3 2)
+Your output is correct: square-filled
+
+---- TEST 58 -----
+(g9 (quote play) (quote o) 3 1)
+Your output is correct: square-filled
+
+---- TEST 59 -----
+(g9 (quote play) (quote x) 3 2)
+Your output is correct: out-of-turn
+
+---- TEST 60 -----
+(g9 (quote play) (quote o) 3 3)
+Your output is correct: o-won
+
+------------PROBLEM 4---------------
+---- TEST 1 -----
+(q1 (quote empty?))
+Your output is correct: #t
+
+---- TEST 2 -----
+(q1 (quote putq!) (quote a))
+Your output is correct: a
+
+---- TEST 3 -----
+(q1 (quote putq!) (quote b))
+Your output is correct: b
+
+---- TEST 4 -----
+(q1 (quote length))
+Your output is correct: 2
+
+---- TEST 5 -----
+(q1 (quote getq))
+Your output is correct: a
+
+---- TEST 6 -----
+(q2 (quote putq!) (quote g))
+Your output is correct: g
+
+---- TEST 7 -----
+(q2 (quote putq!) (quote h))
+Your output is correct: h
+
+---- TEST 8 -----
+(q2 (quote putq!) (quote i))
+Your output is correct: i
+
+---- TEST 9 -----
+(q2 (quote getq))
+Your output is correct: g
+
+---- TEST 10 -----
+(q2 (quote delq!))
+Your output is correct: g
+
+---- TEST 11 -----
+(q2 (quote getq))
+Your output is correct: h
+
+---- TEST 12 -----
+(q1 (quote getq))
+Your output is correct: a
+
+---- TEST 13 -----
+(q1 (quote hi))
+Your output is correct: error
+
+done
