@@ -56,7 +56,7 @@
 
 (define g2 (make-ttt-game)) 
 (testcase 1 14 (g2 'play 'o 2 3) '((- - -) (- - o) (- - -)) '(g2 'play 'o 2 3))
-(testcase 1 15 (g1 'board) '((- x o) (- x -) (- x o)) '(g1 '(g1 'board))
+(testcase 1 15 (g1 'board) '((- x o) (- x -) (- x o)) '(g1 'board))
 (testcase 1 16 (g1 'reset) '((- - -) (- - -) (- - -)) '(g1 'reset))
 (testcase 1 17 (g2 'board) '((- - -) (- - o) (- - -)) ' (g2 'board))
 

@@ -28,6 +28,11 @@ then
    cp hw7/hw7_testcases.scm "$direc"
    cp $a "$direc"
    cd "$direc"
+elif [ $a == "hw8.scm" ]
+then
+   cp hw8/hw8_testcases.scm "$direc"
+   cp $a "$direc"
+   cd "$direc"
 else
    echo ""
    echo "File not supported."
@@ -44,6 +49,9 @@ then
 elif [ $a == "hw7.scm" ]
 then
    ./plt-r5rs hw7_testcases.scm > output.txt
+elif [ $a == "hw8.scm" ]
+then
+   ./plt-r5rs hw8_testcases.scm > output.txt
 else
    echo ""
    echo "File not supported."
