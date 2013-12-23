@@ -22,11 +22,10 @@ read b
 # Running files
 for i in $(seq -w 01 $b);
 do
-  echo "t$i"
+  echo "t$i:"
   ./Hwk$a < ../Tests/t$i.c > t$i.X
   diff ../Tests/t$i.html t$i.X
+  echo ""
 done
 
-
-echo ""
 echo "done"
