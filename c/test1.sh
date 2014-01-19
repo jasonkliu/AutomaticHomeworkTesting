@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Finds name of file
-echo "Script made by Jason Liu, December 2013"
+echo "Script made by Jason Liu, January 2014"
 echo -n "Enter name of Homework (1-6,N1,N2): "
 read a
 echo ""
@@ -16,15 +16,16 @@ orig="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "Running in: $orig"
 echo ""
 
-echo -n "Enter test number (10-40 inclusive): "
+echo -n "Enter test number (1-14): "
 read b
 
 # Running files
-for i in $(seq -w 01 $b);
+# for i in $(seq -w 01 $b); # Old version, works for numbers > 10 only
+for i in $(seq -f %02g $b); 
 do
   echo "t$i:"
-  ./Hwk$a < ../Tests/t$i.c > t$i.X
-  diff ../Tests/t$i.html t$i.X
+  ./Hwk$A < ../Tests/t$i.c > t$i.X
+  diff ../Tests/t$i.cs t$i.X
   echo ""
 done
 
