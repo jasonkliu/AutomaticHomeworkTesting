@@ -1,6 +1,23 @@
 #!/bin/bash
 
 echo "Script made by Jason Liu, March 2014"
+echo "Create a new directory for the testing? "
+echo -n "If no, just press enter... "
+read b
+
+if [ -n "$b" ]; then # if $b is non-null
+   mkdir -p $b       # make $b and all intermediate dirs
+   cd $b
+   orig="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+   echo "Running in: $orig"
+fi
+
+git --version 2>&1 >/dev/null # find git --version
+GIT_IS_AVAILABLE=$?           # should be 0 if git is installed
+if [ $GIT_IS_AVAILABLE -ne 0 ]; then #...
+   echo "Git is not available on your system. Please install it."
+   exit
+fi
 
 # Reads files from pipe and performs actions
 if [ -t 0 ]; then # if argc = 1 (no stdin)
