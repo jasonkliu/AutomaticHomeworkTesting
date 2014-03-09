@@ -1,41 +1,52 @@
 #!/bin/bash
 
 echo "Script made by Jason Liu, March 2014"
-echo "Create a new directory for the testing? "
-echo -n "If no, just press enter... "
-read b
-
-if [ -n "$b" ]; then # if $b is non-null
-   mkdir -p $b       # make $b and all intermediate dirs
-   cd $b
-   orig="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-   echo "Running in: $orig"
-fi
+echo ""
 
 git --version 2>&1 >/dev/null # find git --version
 GIT_IS_AVAILABLE=$?           # should be 0 if git is installed
-if [ $GIT_IS_AVAILABLE -ne 0 ]; then #...
+if [ $GIT_IS_AVAILABLE -ne 0 ]; then 
    echo "Git is not available on your system. Please install it."
    exit
 fi
 
-# Reads files from pipe and performs actions
+orig="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Interactive mode: Create a new directory and read filename
 if [ -t 0 ]; then # if argc = 1 (no stdin)
    echo -n "Enter name of file to read: "
    read a         # store name of file in $a
-fi
 
-if [ -n "$a" ]; then # if $a is non-null
    if [ ! -e "$a" ]; then # if $a doesn't exist
       echo "File not found"
 	  exit
    fi
+
+   echo "Create a new directory for the testing? "
+   echo -n "If no, just press enter... "
+   read b
+
+   if [ -n "$a" ] && [ -n "$b" ]; then # if $a and $b are non-null
+      mkdir -p $b        # make $b and all intermediate dirs
+      cp $a $b; cd $b    # else, copy $a into $b and cd there
+   fi
+
+   current="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+   echo "Running in: $current"
    while read -r line ; do # Read each line in $a
-      echo -e "$line" # TODO: Change to command
+      line=`echo -e $line | sed -e "s/https/git/"`
+      line=`echo -e $line | sed -e "s/$/.git/"`
+	  echo -e "$line" 
+	  #git clone $line
    done < $a
+
+# Quick mode: read from stdin and run automatically
 else
    while read -r line ; do # Read lines from stdin
-      echo -e "$line" # TODO: Change to command
+      line=`echo -e $line | sed -e "s/https/git/"`
+      line=`echo -e $line | sed -e "s/$/.git/"`
+      echo -e "$line" 
+	  #git clone $line
    done
 fi
 
