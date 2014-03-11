@@ -57,7 +57,7 @@ if [ -t 0 ]; then # if argc = 1 (no stdin)
 
    if [ ! -e "$a" ]; then # if $a doesn't exist
       echo "File not found"
-	  exit
+      exit
    fi
 
    echo "Create a new directory for the testing? "
@@ -72,37 +72,37 @@ if [ -t 0 ]; then # if argc = 1 (no stdin)
    current="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
    echo "Running in: $current"
    while read -r line ; do # Read each line in $a
-	  folder=`echo "${line##*/}/"`  # Find directory of cloning
+      folder=`echo "${line##*/}/"`  # Find directory of cloning
       line=`echo -e $line | sed -e "s/https/git/"`
       line=`echo -e $line | sed -e "s/$/.git/"`
       echo -e "$line" 
-	  git clone $line >/dev/null 2>&1
-	  cd $folder                       # Change to folder directory
-	  cp $orig/rspec .rspec            # Copy rspec file in
-	  mkdir spec/                      # Make a spec/ directory
-	  cp -r $orig/spec/ spec/          # Copy spec/ directory in
-	  rspec                            # Run rspec tests in folder
-	  over80                           # Check if over 80 lines in file
+      git clone $line >/dev/null 2>&1
+      cd $folder                       # Change to folder directory
+      cp $orig/rspec .rspec            # Copy rspec file in
+      mkdir spec/                      # Make a spec/ directory
+      cp -r $orig/spec/ spec/          # Copy spec/ directory in
+      rspec                            # Run rspec tests in folder
+      over80                           # Check if over 80 lines in file
       cd ../; rm -rf $folder           # Clean up contents
-	  echo "------------------------------------------------"; echo ""
+      echo "------------------------------------------------"; echo ""
    done < $a
 
 # Quick mode: read from stdin and run automatically
 else
    while read -r line ; do # Read lines from stdin
-	  folder=`echo "${line##*/}/"`  # Find directory of cloning
+      folder=`echo "${line##*/}/"`  # Find directory of cloning
       line=`echo -e $line | sed -e "s/https/git/"`
       line=`echo -e $line | sed -e "s/$/.git/"`
       echo -e "$line" 
-	  git clone $line >/dev/null 2>&1
-	  cd $folder                       # Change to folder directory
-	  cp $orig/rspec .rspec            # Copy rspec file in
-	  mkdir spec/                      # Make a spec/ directory
-	  cp -r $orig/spec/ spec/          # Copy spec/ directory in
-	  rspec                            # Run rspec tests in folder
-	  over80                           # Check if over 80 lines in file
+      git clone $line >/dev/null 2>&1
+      cd $folder                       # Change to folder directory
+      cp $orig/rspec .rspec            # Copy rspec file in
+      mkdir spec/                      # Make a spec/ directory
+      cp -r $orig/spec/ spec/          # Copy spec/ directory in
+      rspec                            # Run rspec tests in folder
+      over80                           # Check if over 80 lines in file
       cd ../; rm -rf $folder           # Clean up contents
-	  echo "------------------------------------------------"; echo ""
+      echo "------------------------------------------------"; echo ""
    done
 fi
 
