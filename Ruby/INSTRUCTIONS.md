@@ -9,6 +9,8 @@ To run it, you need a testfile, which is a list of links to Github repos.
     https://github.com/username/repository
     https://github.com/username/repository
 
+You also need a `rspec` file (non-hidden) and a `spec/` directory for tests.
+
 Running the script && redirect to stdout
 
     chmod +x readline.sh
@@ -28,3 +30,4 @@ A short summary of the script:
 * Copy in `.rspec` and `spec/` and run the tests
 * Check for style guidelines (currently, only 80 char limit)
 * Clean up directories / keep them for future reference
+
