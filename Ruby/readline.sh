@@ -8,22 +8,45 @@ function over80 ()      # TODO: Dive deeper into folders
 {
 ls -1p > filelist # make a file list with each on one line
 while read -r line ; do # Read lines from stdin
-   grep -n '^.\{80\}' "$line" > over.txt # TODO: Hide stderr if >1
-   if [ -s over.txt ]; then # if over.txt exists && size>0
+   #grep -n '^.\{80\}' "$line" > over.txt # TODO: Hide stderr if >1
+   grep -n '^.\{80\}' "$line" > over.txt 2>/dev/null
+   GREP_STATUS=$?
+   echo "$line: $GREP_STATUS"
+   if [ $GREP_STATUS -gt 1 ]; then
+      cd $line
+	  over80
+   elif [ -s over.txt ]; then # if over.txt exists && size>0
       echo "Warning: Lines over 80 characters in file '$line'"
    fi
 done < filelist
 rm over.txt filelist
 }
 
-git --version 2>&1 >/dev/null # find git --version
+# Check if git, capybara, rspec, and sinatra are installed
+git --version 2>&1 >/dev/null 
 GIT_IS_AVAILABLE=$?           # should be 0 if git is installed
+gem list capybara -i 2>&1 >/dev/null
+CAPY_IS_AVAILABLE=$?
+gem list rspec -i 2>&1 >/dev/null
+RSPEC_IS_AVAILABLE=$?
+gem list sinatra -i 2>&1 >/dev/null
+FRANK_IS_AVAILABLE=$?
 if [ $GIT_IS_AVAILABLE -ne 0 ]; then 
    echo "Git is not available on your system. Please install it."
    exit
+elif [ $CAPY_IS_AVAILABLE -ne 0 ]; then 
+   echo "Capybara is not available on your system. Please install it."
+   exit
+elif [ $RSPEC_IS_AVAILABLE -ne 0 ]; then 
+   echo "Rspec is not available on your system. Please install it."
+   exit
+elif [ $FRANK_IS_AVAILABLE -ne 0 ]; then 
+   echo "Sinatra is not available on your system. Please install it."
+   exit
 fi
+exit
 
-orig="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+orig="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # find pwd
 
 # Interactive mode: Create a new directory and read filename
 if [ -t 0 ]; then # if argc = 1 (no stdin)
