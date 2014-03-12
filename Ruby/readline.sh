@@ -11,11 +11,12 @@ ls -1p > filelist # make a file list with each on one line
 while read -r line ; do # Read lines from stdin
    grep -n '^.\{80\}' "$line" > over.txt 2>/dev/null
    GREP_STATUS=$?
-   #echo "$line: $GREP_STATUS"
-   #if [ $GREP_STATUS -gt 1 ]; then  # TODO: if >1, recursively check
-   #   cd $line
-   #   over80
-   if [ -s over.txt ]; then # if over.txt exists && size>0
+   # echo "$line: $GREP_STATUS"
+   if [ $GREP_STATUS -gt 1 ]; then
+      cd $line
+      over80
+      cd ../
+   elif [ -s over.txt ]; then # if over.txt exists && size>0
       echo "Warning: Lines over 80 characters in file '$line'"
    fi
 done < filelist
@@ -72,7 +73,7 @@ if [ -t 0 ]; then # if argc = 1 (no stdin)
    current="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
    echo "Running in: $current"
    while read -r line ; do # Read each line in $a
-      folder=`echo "${line##*/}/"`  # Find directory of cloning
+      folder=`echo "${line##*/}/"`     # Find directory of cloning
       line=`echo -e $line | sed -e "s/https/git/"`
       line=`echo -e $line | sed -e "s/$/.git/"`
       echo -e "$line" 
@@ -90,7 +91,7 @@ if [ -t 0 ]; then # if argc = 1 (no stdin)
 # Quick mode: read from stdin and run automatically
 else
    while read -r line ; do # Read lines from stdin
-      folder=`echo "${line##*/}/"`  # Find directory of cloning
+      folder=`echo "${line##*/}/"`     # Find directory of cloning
       line=`echo -e $line | sed -e "s/https/git/"`
       line=`echo -e $line | sed -e "s/$/.git/"`
       echo -e "$line" 
