@@ -7,11 +7,10 @@ echo ""
 # Check for lines > 80 characters
 function over80 ()     
 {
-ls -1p > filelist # make a file list with each on one line
+ls -1p > filelist  # make a file list with each on one line
 while read -r line ; do # Read lines from stdin
    grep -n '^.\{80\}' "$line" > over.txt 2>/dev/null
-   GREP_STATUS=$?
-   # echo "$line: $GREP_STATUS"
+   GREP_STATUS=$?  # echo "$line: $GREP_STATUS"
    if [ $GREP_STATUS -gt 1 ]; then
       cd $line
       over80
