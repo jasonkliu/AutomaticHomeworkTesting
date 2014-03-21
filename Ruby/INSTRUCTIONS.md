@@ -1,5 +1,7 @@
-Instructions
+Instructions 
 ============
+
+Administrator script: readline.sh
 
 A script to automatically test files using RSpec/Capybara.
 
@@ -30,4 +32,12 @@ A short summary of the script:
 * Copy in `.rspec` and `spec/` and run the tests
 * Check for style guidelines (currently, only 80 char limit)
 * Clean up directories / keep them for future reference
+
+=========================================================
+
+Alternate script: selftest.sh
+Drop this in your repository directory, run these commands:
+    
+    chmod +x selftest.sh
+    ./selftest.sh                      
 
